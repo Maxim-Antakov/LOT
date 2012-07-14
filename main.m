@@ -72,6 +72,7 @@ CA.JMU  = 1;
 %% simulate Reconstruction
 multiWaitbar('Total progress', 2/3);
 multiWaitbar('Z scan',0, 'Color', [0.6 0.2 0.2])
+RI = SO.SD;
 for i = 1:SO.NPL
     multiWaitbar('Z scan',i/SO.NPL)
     RI{i} = zeros(size(SO.SD{i}));

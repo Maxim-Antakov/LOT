@@ -9,7 +9,7 @@ if CA.PSTT~='H'
         multiWaitbar('Convolution array',i/CA.M);
         for j=1:CA.N
 %             Y1{i,j}=Shadow_2M((j-1)*delX+delX/2, (CA.M-i)*delY+delY/2, CA.F-CA.HL, 1, CA.M, CA.N);
-            Y1{i,j}=getPointSourseDetector((j-1)*delX+delX/2,(CA.M-i)*delY+delY/2,CA.F-CA.HL, 0);
+            Y1{i,j}=getPointSourseDetector2((j-1)*delX+delX/2,(CA.M-i)*delY+delY/2,CA.F-CA.HL, 0);
             u=max(max(Y1{i,j}));
             Y1{i,j}=Y1{i,j}./u;
             %        disp(['Макс - ',num2str(max(max(Y1{i,j}))), '; Мин - ', num2str(min(min(Y1{i,j})))]);

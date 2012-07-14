@@ -12,7 +12,7 @@ I = I1*(exp(M*sqb*(L-x))-A*exp(-M*sqb*(L-x)));
 
 COMP_X = repmat(I,[Ny,1]);
 COMP_Z = (exp(M*sqb*SO.Z)-A*exp(-M*sqb*SO.Z))/(1-A);
-
+CRI = RI;
 for i=1:SO.NPL
     switch compType
         case 'z'
@@ -26,6 +26,5 @@ for i=1:SO.NPL
             CRI{i} = RI{i}./COMP_X*COMP_Z(i);
         otherwise
             disp('No compensate')
-            CRI{i} = RI{i};
     end
 end

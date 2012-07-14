@@ -15,7 +15,7 @@ nok = SI.NPL*CA.NPL/gcd(SI.NPL,CA.NPL);
 sid = nok/SI.NPL;
 sic = nok/CA.NPL;
 for i = 1:SI.NPL
-    h = subplot(2,nok,[((i-1)*sid+1):(i*sid)]);
+    h = subplot(2,nok,((i-1)*sid+1):(i*sid));
     if CA.PSTT~='H'
         imagesc(SI.SD{i},clims);
 %         imagesc(SI.SD{i});
@@ -28,7 +28,7 @@ for i = 1:SI.NPL
     title(['Real plane ', num2str(i), ])
 end
 for i=1:CA.NPL
-    h = subplot(2,nok,[((i-1)*sic+nok+1):(i*sic+nok)]);
+    h = subplot(2,nok,((i-1)*sic+nok+1):(i*sic+nok));
     if CA.PSTT~='H'
         imagesc(X2{i},clims);
 %         imagesc(X2{i});
