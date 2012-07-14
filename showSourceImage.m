@@ -1,4 +1,4 @@
-function [] = showSourceImage(SI, figID)
+function [] = showSourceImage(SI, figID, newTitle)
 global CA
 figure(figID)
 for i = 1:SI.NPL
@@ -12,4 +12,5 @@ for i = 1:SI.NPL
     axis equal
     title(['Plate ', num2str(i)])
 end
+set(figID,'Name',newTitle);
 

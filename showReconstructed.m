@@ -1,5 +1,6 @@
-function showReconstructed(X2, SI, figID)
+function showReconstructed(X2, SI, figID, newTitle)
 figure(figID)
+
 global CA
 NPL = length(X2);
 m=max(max(SI.SD{1}));
@@ -39,3 +40,4 @@ for i=1:CA.NPL
 %     title({['Reconstructed plane ', num2str(i)],['D = ', num2str(Er.D(i)),'; R = ', num2str(Er.R(i)),'; E = ', num2str(Er.E(i))]})
 end
 
+set(figID,'Name',newTitle);

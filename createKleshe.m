@@ -4,9 +4,9 @@ delX=CA.DX*CA.ASX/(CA.ASX - CA.DX);
 delY=CA.DY*CA.ASY/(CA.ASY - CA.DY);
 if CA.PSTT~='H'
     Y1 = cell(CA.M,CA.N);
-%     multiWaitbar('Convolution array',0, 'Color', [0.2 0.6 0.2]);
+    multiWaitbar('Convolution array',0, 'Color', [0.2 0.6 0.2]);
     for i=1:CA.M
-%         multiWaitbar('Convolution array',i/CA.M);
+        multiWaitbar('Convolution array',i/CA.M);
         for j=1:CA.N
 %             Y1{i,j}=Shadow_2M((j-1)*delX+delX/2, (CA.M-i)*delY+delY/2, CA.F-CA.HL, 1, CA.M, CA.N);
             Y1{i,j}=getPointSourseDetector((j-1)*delX+delX/2,(CA.M-i)*delY+delY/2,CA.F-CA.HL, 0);
@@ -16,6 +16,7 @@ if CA.PSTT~='H'
             %subplot(n,m,(i-1)*n+j);imagesc(Y1{i,j}); colormap copper;axis off
         end
     end
+    multiWaitbar( 'Convolution array', 'Close' )
 else
     V = 3*CA.R*(CA.R+1)+1;
     Y1 = cell(1,V);
