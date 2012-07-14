@@ -72,18 +72,17 @@ CA.JMU  = 1;
 %% simulate Reconstruction
 multiWaitbar('Total progress', 2/3);
 multiWaitbar('Z scan',0, 'Color', [0.6 0.2 0.2])
-RI = SO.SD;
+RI = zeros(size(SO.SD));
 for i = 1:SO.NPL
     multiWaitbar('Z scan',i/SO.NPL)
-    RI{i} = zeros(size(SO.SD{i}));
     multiWaitbar('Y scan',0, 'Color', [0.2 0.2 0.6])
     for m = 1:CA.N
         multiWaitbar('Y scan',m/CA.N);
-        tempSO = zeros(size(SO.SD{i}));
-        tempSO(m,:) = SO.SD{i}(m,:);
+        tempSO = zeros(size(squeeze(SO.SD(i,:,:))));
+        tempSO(m,:) = SO.SD(i,m,:);
         tempDET = getDetector2(tempSO,SO.Z(i));
         tempRI = restore(tempDET);
-        RI{i}(m,:) = tempRI(m,:);
+        RI(i,m,:) = tempRI(m,:);
     end
     multiWaitbar( 'Y scan', 'Close' )
 end
@@ -92,11 +91,15 @@ multiWaitbar('Total progress', 1);
 profile off
 profile viewer
 %% compensation
-CRI = compensate(RI,'z');
+CRI = compensate(RI,'b');
 multiWaitbar('CLOSEALL');
 %% draw all
 showAperture(1)
-showSourceImage(LO, 2,'Luminophore concentration');
-showSourceImage(SO,3,'Luminophore activity');
-showReconstructed(RI, SO, 5, 'Luminophore activity');
-showReconstructed(CRI, LO, 6, 'Luminophore activity compensated');
+% showSourceImage(LO, 2,'Luminophore concentration');
+% showSourceImage(SO,3,'Luminophore activity');
+% showReconstructed(RI, SO, 5, 'Luminophore activity');
+% showReconstructed(CRI, LO, 6, 'Luminophore activity compensated');
+SliceBrowser(LO.SD,'Luminophore concentration');
+SliceBrowser(SO.SD,'Luminophore activity');
+SliceBrowser(RI, 'Luminophore activity');
+SliceBrowser(CRI, 'Luminophore activity compensated');

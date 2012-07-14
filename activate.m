@@ -4,7 +4,7 @@ global SO % Source object
 global CA
 SO.NPL = LO.NPL;
 SO.Z = LO.Z;
-[Nx,Ny] = size(LO.SD{1});
+[~, Nx,Ny] = size(LO.SD);
 L = CA.SID*(CA.M-1/2);
 x = linspace(0,L,Nx);
 
@@ -14,8 +14,5 @@ A = (1-sqb)/(1+sqb);
 I1 = I0/(exp(M*sqb*L)-A*exp(-M*sqb*L));
 I = I1*(exp(M*sqb*(L-x))-A*exp(-M*sqb*(L-x)));
 % I = I + fliplr(I);
-
-Iyz = repmat(I,[Ny,1]);
-for i=1:SO.NPL
-    SO.SD{i} = LO.SD{i}.*Iyz;
-end
+Iyz = repmat(I,[LO.NPL,1,Ny]);
+SO.SD = LO.SD.*Iyz;
