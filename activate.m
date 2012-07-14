@@ -13,6 +13,6 @@ sqb = sqrt(1-beta^2);
 A = (1-sqb)/(1+sqb);
 I1 = I0/(exp(M*sqb*L)-A*exp(-M*sqb*L));
 I = I1*(exp(M*sqb*(L-x))-A*exp(-M*sqb*(L-x)));
-% I = I + fliplr(I);
+I = I + fliplr(I);
 Iyz = repmat(I,[LO.NPL,1,Ny]);
 SO.SD = LO.SD.*Iyz;

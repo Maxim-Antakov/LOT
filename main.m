@@ -6,8 +6,8 @@ multiWaitbar('CLOSEALL');
 multiWaitbar('Total progress', 0);
 %% create aperture
 global CA
-CA.M = 40;
-CA.N = 40;
+CA.M = 20;
+CA.N = 20;
 CA.R = 5; % Rank for hexs
 CA.ASX = 2;
 CA.ASY = 2;
@@ -17,6 +17,7 @@ CA.DX0 = 1; % Real open size of pinhole
 CA.DY0 = 1;
 CA.HL = 5;
 CA.NPL = 20;
+CA.RASP = 4;
 % CA.VKLR = [121 40 13 0];
 % CA.VKLR = [121 81 13 0];
 CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
@@ -37,7 +38,7 @@ createAperture;
 %% create Luminofor object
 global LO
 
-LO.ID = 3;
+LO.ID = 10;
 LO.NPL = CA.NPL;
 j=1;
 for i=1:LO.NPL
@@ -72,14 +73,14 @@ CA.JMU  = 1;
 %% simulate Reconstruction
 multiWaitbar('Total progress', 2/3);
 multiWaitbar('Z scan',0, 'Color', [0.6 0.2 0.2])
-RI = zeros(size(SO.SD));
+RI = zeros(CA.NPL,CA.N,CA.M);
 for i = 1:SO.NPL
     multiWaitbar('Z scan',i/SO.NPL)
     multiWaitbar('Y scan',0, 'Color', [0.2 0.2 0.6])
     for m = 1:CA.M
         multiWaitbar('Y scan',m/CA.M);
         tempSO = zeros(size(squeeze(SO.SD(i,:,:))));
-        tempSO(m,:) = SO.SD(i,m,:);
+        tempSO((CA.RASP*(m-1)+1):CA.RASP*m,:) = SO.SD(i,(CA.RASP*(m-1)+1):CA.RASP*m,:);
         tempDET = getDetector2(tempSO,SO.Z(i));
         tempRI = restore(tempDET);
         RI(i,m,:) = tempRI(m,:);
@@ -93,6 +94,10 @@ profile viewer
 %% compensation
 CRI = compensate(RI,'b');
 multiWaitbar('CLOSEALL');
+
+%% count error
+% ER = sqrt((RI - SO.SD).^2);
+
 %% draw all
 showAperture(1)
 % showSourceImage(LO, 2,'Luminophore concentration');
@@ -103,3 +108,4 @@ SliceBrowser(LO.SD,'Luminophore concentration');
 SliceBrowser(SO.SD,'Luminophore activity');
 SliceBrowser(RI, 'Luminophore activity reconstructed');
 SliceBrowser(CRI, 'Luminophore activity compensated');
+% SliceBrowser(ER, 'Deviation');

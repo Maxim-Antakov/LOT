@@ -1,8 +1,8 @@
 function createSourceImage
 global CA LO
 %TODO: parse varargins throw SI params
-LO.N = CA.N;
-LO.M = CA.M;
+LO.N = CA.N*CA.RASP;
+LO.M = CA.M*CA.RASP;
 LO.DZ = (CA.F-CA.HL)/(LO.NPL+1);
 LO.SD = zeros(LO.NPL, LO.M, LO.N);
 LO.Z = 0:LO.DZ:LO.DZ*(LO.NPL-1);
@@ -122,25 +122,11 @@ switch LO.ID
             LO.SD{i} = 1000000*LO.SD{i};
         end
     case 10
-        [x,y] = meshgrid(1:CA.M, 1:CA.N);
-        c = (CA.M+CA.N)/4;
+        [x,y] = meshgrid(1:LO.M, 1:LO.N);
+        c = (LO.M+LO.N)/4;
         for i=1:LO.NPL
             LO.SD(i,:,:) = double(((x-c).^2+(y-c).^2)<c^2);
         end
     otherwise
 end
-
-if CA.PSTT=='H'
-    for i=1:LO.NPL
-        LO.SD{i} = rediscretizy(LO.SD{i}, CA.R);
-    end
-    m = zeros(1,LO.NPL);
-    for i=1:LO.NPL
-        m(i) = max(LO.SD{i});
-    end
-    totalM = max(m);
-    for i=1:LO.NPL
-        LO.SD{i} = LO.SD{i}/totalM*1000000;
-    end
-end
-
+LO.SD = LO.SD/CA.RASP/CA.RASP;
