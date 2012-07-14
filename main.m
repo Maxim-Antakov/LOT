@@ -7,7 +7,7 @@ multiWaitbar('Total progress', 0);
 %% create aperture
 global CA
 CA.M = 40;
-CA.N = 20;
+CA.N = 40;
 CA.R = 5; % Rank for hexs
 CA.ASX = 2;
 CA.ASY = 2;
@@ -16,7 +16,7 @@ CA.DY = 1;
 CA.DX0 = 1; % Real open size of pinhole
 CA.DY0 = 1;
 CA.HL = 5;
-CA.NPL = 10;
+CA.NPL = 20;
 % CA.VKLR = [121 40 13 0];
 % CA.VKLR = [121 81 13 0];
 CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
