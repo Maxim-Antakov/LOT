@@ -48,7 +48,7 @@ switch LO.ID
                 z1=z0+0.75-(i-1)*1.5/LO.NPL;
                 fun1=((x.*cost + y.*sint).^2)./a^2 + ((y.*cost - x.*sint).^2)./b^2 + z1.^2./c^2;
                 idx=find( fun1<= 1);
-                p = LO.SD{i};
+                p = squeeze(LO.SD(i,:,:));
                 p(idx) = p(idx) + A;
                 LO.SD(i,:,:) = p;
             end

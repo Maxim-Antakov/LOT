@@ -232,9 +232,9 @@ handles.pointer3dt;
 size(handles.volume);
 value3dt = handles.volume(handles.pointer3dt(1), handles.pointer3dt(2), handles.pointer3dt(3), handles.pointer3dt(4));
 
-text_str = [{['X:' int2str(handles.pointer3dt(1))]},...
+text_str = [{['X:' int2str(handles.pointer3dt(3))]},...
             {['Y:' int2str(handles.pointer3dt(2))]},...
-            {['Z:' int2str(handles.pointer3dt(3))]},...
+            {['Z:' int2str(handles.pointer3dt(1))]},...
             {['Value:' num2str(value3dt)]}];
 set(handles.pointer3d_info, 'String', text_str,'FontSize',10);
 guidata(hObject, handles);
@@ -261,8 +261,8 @@ sliceZY = squeeze(permute(sliceYZ, [2 1 3]));
 sp1 = subplot(2,2,1);
 %colorbar;
 imagesc(sliceXY, clims);
-title('Slice XY');
-ylabel('X');xlabel('Y');
+title('Slice ZY');
+ylabel('Z');xlabel('Y');
 line([handles.pointer3dt(2) handles.pointer3dt(2)], [0 size(handles.volume,1)]);
 line([0 size(handles.volume,2)], [handles.pointer3dt(1) handles.pointer3dt(1)]);
 %set(allchild(gca),'ButtonDownFcn',@Subplot1_ButtonDownFcn);
@@ -275,8 +275,8 @@ end;
 
 sp2 = subplot(2,2,2);
 imagesc(sliceXZ, clims);
-title('Slice XZ');
-ylabel('X');xlabel('Z');
+title('Slice ZX');
+ylabel('Z');xlabel('X');
 line([handles.pointer3dt(3) handles.pointer3dt(3)], [0 size(handles.volume,1)]);
 line([0 size(handles.volume,3)], [handles.pointer3dt(1) handles.pointer3dt(1)]);
 %set(allchild(gca),'ButtonDownFcn',@Subplot2_ButtonDownFcn);
@@ -289,8 +289,8 @@ end;
 
 sp3 = subplot(2,2,3);
 imagesc(sliceZY, clims);
-title('Slice ZY');
-ylabel('Z');xlabel('Y');
+title('Slice XY');
+ylabel('X');xlabel('Y');
 line([0 size(handles.volume,2)], [handles.pointer3dt(3) handles.pointer3dt(3)]);
 line([handles.pointer3dt(2) handles.pointer3dt(2)], [0 size(handles.volume,3)]);
 %set(allchild(gca),'ButtonDownFcn',@Subplot3_ButtonDownFcn);
