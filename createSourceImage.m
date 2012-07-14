@@ -4,19 +4,17 @@ global CA LO
 LO.N = CA.N;
 LO.M = CA.M;
 LO.DZ = (CA.F-CA.HL)/(LO.NPL+1);
-for i=1:LO.NPL
-    LO.SD{i} = zeros(LO.M, LO.N);
-end
+LO.SD = zeros(LO.NPL, LO.M, LO.N);
 LO.Z = 0:LO.DZ:LO.DZ*(LO.NPL-1);
 switch LO.ID
     case 1 % central point source
         plateID = ceil(LO.NPL/2);
         temp = zeros(LO.M, LO.N);
         temp(ceil(LO.M/2),ceil(LO.N/2))=1;
-        LO.SD{plateID} = temp;
+        LO.SD(plateID,:,:) = temp;
     case 2 % multi-point source
         for i=1:length(LO.PSC)
-            LO.SD{LO.PSC(i).z}(LO.PSC(i).x,LO.PSC(i).y)=1;
+            LO.SD(LO.PSC(i).z,LO.PSC(i).x,LO.PSC(i).y)=1;
         end
     case 3 % shepp
         E= [0      0        0      0.69   0.92    0.90     0     0     1;
@@ -50,9 +48,9 @@ switch LO.ID
                 z1=z0+0.75-(i-1)*1.5/LO.NPL;
                 fun1=((x.*cost + y.*sint).^2)./a^2 + ((y.*cost - x.*sint).^2)./b^2 + z1.^2./c^2;
                 idx=find( fun1<= 1);
-                p = LO.SD{i};
+                p = squeeze(LO.SD(i,:,:));
                 p(idx) = p(idx) + A;
-                LO.SD{i} = p;
+                LO.SD(i,:,:) = p;
             end
         end
     case 4 %Цифры по центру
@@ -127,7 +125,7 @@ switch LO.ID
         [x,y] = meshgrid(1:CA.M, 1:CA.N);
         c = (CA.M+CA.N)/4;
         for i=1:LO.NPL
-            LO.SD{i} = double(((x-c).^2+(y-c).^2)<c^2);
+            LO.SD(i,:,:) = double(((x-c).^2+(y-c).^2)<c^2);
         end
     otherwise
 end

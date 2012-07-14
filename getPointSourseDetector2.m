@@ -24,7 +24,7 @@ r = min(R,r);
 r2 = r*r;
 R2 = R*R;
 S = zeros(1, CA.M*CA.N);
-z1 = z-CA.HL;
+
 for index = 1:op
     j = J(index);
     k = I(index);
