@@ -1,4 +1,4 @@
-function [] = showAperture(figID)
+function [] = showAperture(figID, figTitle)
 global CA
 figure(figID)
 if CA.PSPT=='B'
@@ -43,3 +43,4 @@ else
     
 end
 colormap(cmap)
+set(figID,'Name',figTitle)

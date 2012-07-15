@@ -24,7 +24,7 @@ end
 
 %% Creating basic aperture
 CA.RAP = zeros(CA.M, CA.N);
-CA.HAP = zeros(3*CA.R*(CA.R+1), 1);
+%CA.HAP = zeros(3*CA.R*(CA.R+1), 1);
 
 switch CA.PSTT
     case 'P' % Line-by-line construction method
@@ -95,7 +95,7 @@ y_k = (CA.ASX*M-CA.DX*m)/2;
 x = (0:CA.ASX:(CA.N-1)*CA.ASX)+CA.ASX/2;
 y = ((CA.M-1)*CA.ASY:-CA.ASY:0)+CA.ASY/2;
 [X, Y] = meshgrid(x,y);
-
+CA.XY_DET = zeros(2,CA.M*CA.N);
 CA.XY_DET(1,:) = reshape(X, 1, CA.M*CA.N);
 CA.XY_DET(2,:) = reshape(Y, 1, CA.M*CA.N);
 %% Open pinholes cells centers
@@ -124,7 +124,6 @@ CA.PSA_AV = repmat(CA.XYV_AP(:,3)', CA.M*CA.N, 1);
 %% Focal properties
 CA.SID = CA.ASX*CA.DX/(CA.ASX-CA.DX);
 CA.F = CA.SID*CA.HL/CA.DX;
-CA.DZ = (CA.F-CA.HL)/(CA.NPL+1);
 %% Other
 
 % d1 = 0.5*numel(CA.MRAP);

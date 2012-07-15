@@ -53,12 +53,11 @@ end
 createSourceImage;
 %
 %% create Activated object
-global beta M
-global I0
 global SO
-I0 = 1000;
-beta = 0.95; M = 0.15;
-
+SO.I0 = 1000;
+SO.beta = 0.95;
+SO.MU = 0.15;
+SO.Act_Type = 1;
 activate;
 multiWaitbar('Total progress', 1/3);
 %

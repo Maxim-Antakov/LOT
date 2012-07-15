@@ -1,8 +1,7 @@
 function S = getPointSourseDetector2(x,y,z,z0)
 
-global CA;
-global beta M
-sqb = sqrt(1-beta^2);
+global CA SO;
+sqb = sqrt(1-SO.beta^2);
 A = (1-sqb)/(1+sqb);
 
 r = CA.ASX/2;
@@ -51,7 +50,7 @@ for index = 1:op
 %             ll=z0;
             ll = sqrt((x-xv)^2+(y-yv)^2+z0^2); % FIXIT
         end
-        mu = (1-A)/(exp(M*sqb*ll)-A*exp(-M*sqb*ll));
+        mu = (1-A)/(exp(SO.MU*sqb*ll)-A*exp(-SO.MU*sqb*ll));
     else       mu = 1;
     end
     S(k)=S(k)+CA.PSA_AV(k,j)*add*mu;
