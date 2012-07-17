@@ -6,8 +6,8 @@ multiWaitbar('CLOSEALL');
 multiWaitbar('Total progress', 0);
 %% create aperture
 global CA
-CA.M = 20;
-CA.N = 20;
+CA.M = 40;
+CA.N = 40;
 CA.R = 5; % Rank for hexs
 CA.ASX = 2;
 CA.ASY = 2;
@@ -17,7 +17,7 @@ CA.DX0 = 1; % Real open size of pinhole
 CA.DY0 = 1;
 CA.HL = 5;
 CA.NPL = 20;
-CA.RASP = 4;
+CA.RASP = 1;
 % CA.VKLR = [121 40 13 0];
 % CA.VKLR = [121 81 13 0];
 CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
@@ -38,7 +38,7 @@ createAperture;
 %% create Luminofor object
 global LO
 
-LO.ID = 10;
+LO.ID = 3;
 LO.NPL = CA.NPL;
 j=1;
 for i=1:LO.NPL
@@ -51,12 +51,14 @@ for i=1:LO.NPL
     end
 end
 createSourceImage;
-%
+save('test_draw.mat','LO')
+pause
 %% create Activated object
 global SO
 SO.I0 = 1000;
 SO.beta = 0.95;
 SO.MU = 0.15;
+SO.MU0 = 0.15;
 SO.Act_Type = 1;
 activate;
 multiWaitbar('Total progress', 1/3);
@@ -98,7 +100,7 @@ multiWaitbar('CLOSEALL');
 % ER = sqrt((RI - SO.SD).^2);
 
 %% draw all
-showAperture(1)
+showAperture(1,'Aperture')
 % showSourceImage(LO, 2,'Luminophore concentration');
 % showSourceImage(SO,3,'Luminophore activity');
 % showReconstructed(RI, SO, 5, 'Luminophore activity');
@@ -108,3 +110,4 @@ SliceBrowser(SO.SD,'Luminophore activity');
 SliceBrowser(RI, 'Luminophore activity reconstructed');
 SliceBrowser(CRI, 'Luminophore activity compensated');
 % SliceBrowser(ER, 'Deviation');
+save('test_draw2.mat','CRI')

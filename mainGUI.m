@@ -22,7 +22,7 @@ function varargout = mainGUI(varargin)
 
 % Edit the above text to modify the response to help mainGUI
 
-% Last Modified by GUIDE v2.5 15-Jul-2012 16:27:50
+% Last Modified by GUIDE v2.5 16-Jul-2012 12:21:28
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -745,6 +745,7 @@ function btn_select_ALD_Callback(hObject, eventdata, handles)
 global SO
 SO.I0 = str2double(get(handles.ed_I0,'String'));
 SO.MU = str2double(get(handles.ed_MU,'String'));
+SO.MU0 = str2double(get(handles.ed_MU0,'String'));
 SO.beta = str2double(get(handles.ed_beta,'String'));
 SO.Act_Type = str2double(get(handles.ed_Act_Type,'String'));
 activate;
@@ -810,3 +811,26 @@ end
 function btn_show_Result_Callback(hObject, eventdata, handles)
 global RI
 SliceBrowser(RI, 'Luminophore activity reconstructed');
+
+
+
+function ed_MU0_Callback(hObject, eventdata, handles)
+% hObject    handle to ed_MU0 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of ed_MU0 as text
+%        str2double(get(hObject,'String')) returns contents of ed_MU0 as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function ed_MU0_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to ed_MU0 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

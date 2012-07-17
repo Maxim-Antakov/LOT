@@ -48,7 +48,8 @@ for index = 1:op
             ll = 0;
         else
 %             ll=z0;
-            ll = sqrt((x-xv)^2+(y-yv)^2+z0^2); % FIXIT
+            ll = z0; % FIXIT
+%             ll = sqrt((x-xv)^2+(y-yv)^2+z0^2); % FIXIT
         end
         mu = (1-A)/(exp(SO.MU*sqb*ll)-A*exp(-SO.MU*sqb*ll));
     else       mu = 1;
