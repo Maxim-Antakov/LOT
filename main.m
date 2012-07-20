@@ -1,13 +1,13 @@
 close all
 clear all
 clc
-profile on
+% profile on
 multiWaitbar('CLOSEALL');
 multiWaitbar('Total progress', 0);
 %% create aperture
 global CA
-CA.M = 40;
-CA.N = 40;
+CA.M = 99;
+CA.N = 99;
 CA.R = 5; % Rank for hexs
 CA.ASX = 2;
 CA.ASY = 2;
@@ -16,17 +16,17 @@ CA.DY = 1;
 CA.DX0 = 1; % Real open size of pinhole
 CA.DY0 = 1;
 CA.HL = 5;
-CA.NPL = 20;
+CA.NPL = 99;
 CA.RASP = 1;
 % CA.VKLR = [121 40 13 0];
 % CA.VKLR = [121 81 13 0];
-CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
+% CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
 % CA.VKLR = [3 2 1 22*21/3-1];
 % CA.VKLR = [15 7 3 0];
 %  CA.VKLR = [7 4 3 1 6];
 % CA.VKLR = [7 3 1 7];
 % CA.VKLR = [91 10 1 0];
-% CA.VKLR = [4 3 2 CA.M*CA.N/4-1];
+CA.VKLR = [3 2 1 CA.M*CA.N/3-1];
 
 CA.VKLR2 = [4 3 2 1];
 % CA.VKLR2 = [7 4 3 1 0];
@@ -90,8 +90,8 @@ for i = 1:SO.NPL
 end
 multiWaitbar( 'Z scan', 'Close' )
 multiWaitbar('Total progress', 1);
-profile off
-profile viewer
+% profile off
+% profile viewer
 %% compensation
 CRI = compensate(RI,'b');
 multiWaitbar('CLOSEALL');
@@ -110,4 +110,5 @@ SliceBrowser(SO.SD,'Luminophore activity');
 SliceBrowser(RI, 'Luminophore activity reconstructed');
 SliceBrowser(CRI, 'Luminophore activity compensated');
 % SliceBrowser(ER, 'Deviation');
-save('test_draw2.mat','CRI')
+save('test_draw2.mat','RI')
+save('test_draw3.mat','CRI')
