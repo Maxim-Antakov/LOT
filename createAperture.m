@@ -2,24 +2,28 @@ function createAperture
 global CA
 CA.PSP  = [];
 CA.PSP2 = [];
-if length(CA.VKLR)==4
-    CA.PSP = readSQD(CA.VKLR);
-    CA.PSPT = 'B';
-elseif length(CA.VKLR)==5
-    CA.PSP = readSQT(CA.VKLR);
-    CA.PSPT = 'T';
-else
-    disp('createApertue: Error! Wrong VLKR size');
-end
-
-if CA.PSTT=='S'
-    if length(CA.VKLR2)==4
-        CA.PSP2 = readSQD(CA.VKLR2);
+if CA.PSTT~='1'
+    if length(CA.VKLR)==4
+        CA.PSP = readSQD(CA.VKLR);
+        CA.PSPT = 'B';
     elseif length(CA.VKLR)==5
-        CA.PSP2 = readSQT(CA.VKLR2);
+        CA.PSP = readSQT(CA.VKLR);
+        CA.PSPT = 'T';
     else
-        disp('createApertue: Error! Wrong VLKR2 size');
+        disp('createApertue: Error! Wrong VLKR size');
     end
+    
+    if CA.PSTT=='S'
+        if length(CA.VKLR2)==4
+            CA.PSP2 = readSQD(CA.VKLR2);
+        elseif length(CA.VKLR)==5
+            CA.PSP2 = readSQT(CA.VKLR2);
+        else
+            disp('createApertue: Error! Wrong VLKR2 size');
+        end
+    end
+else
+    CA.PSPT = '1';
 end
 
 %% Creating basic aperture
@@ -49,6 +53,9 @@ switch CA.PSTT
         end
     case 'S' % Self-supported construction method
         CA.RAP = CA.PSP'*CA.PSP2;
+    case '1'
+        CA.AP = zeros(CA.M, CA.N);
+        CA.AP(ceil((CA.M+1)/2),ceil((CA.N+1)/2)) = 1;
     case 'H' % Hexagonal constructed method
         %% TODO THIS!
     otherwise
@@ -66,6 +73,9 @@ switch CA.PSTT
         NAp = [CA.RAP,CA.RAP];
         NAp = [NAp;NAp];
         CA.MRAP = NAp(1:2*CA.M-1,1:2*CA.N-1);
+    case '1'
+        CA.MRAP = zeros(2*CA.M-1, 2*CA.N-1);
+        CA.MRAP(CA.M,CA.N) = 1;
     case 'H' % Hexagonal constructed method
         Centri=createHEXmosaic;
         if length(CA.VKLR)==4
@@ -105,10 +115,10 @@ index = 1;
 for i=1:n
     for j=1:m
         if CA.MRAP(j,i)~=0
-          CA.XYV_AP(index, 1) = x_k+CA.DX/2+CA.DX*(i-1);
-          CA.XYV_AP(index, 2) = y_k+CA.DY/2+CA.DY*(m-j);  
-          CA.XYV_AP(index, 3) = CA.MRAP(j,i);
-          index = index+1;
+            CA.XYV_AP(index, 1) = x_k+CA.DX/2+CA.DX*(i-1);
+            CA.XYV_AP(index, 2) = y_k+CA.DY/2+CA.DY*(m-j);
+            CA.XYV_AP(index, 3) = CA.MRAP(j,i);
+            index = index+1;
         end
     end
 end

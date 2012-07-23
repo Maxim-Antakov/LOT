@@ -23,6 +23,7 @@ end
 if (CA.PSTT == 'P' || CA.PSTT == 'D'),     PST = 0;
 elseif CA.PSTT == 'S', PST = 2;
 elseif CA.PSTT == 'H', PST = 50;
+elseif CA.PSTT == '1', PST = 77;
 end
 
 if CA.PSPT == 'T',     PST = PST+6;
@@ -154,6 +155,8 @@ switch PST
         R1    = 1/(CA.VKLR(2)-CA.VKLR(3));
         R2    = R1*CA.VKLR(3)/CA.VKLR(2)^2;
         X2=R1*Y-R2*JJF';
+    case 77
+        X2 = flipud(fliplr(S));
 end
 if CA.PSTT~='H'
     X2 = X2*4*pi*CA.F*CA.F/(pi*CA.ASX*CA.ASY/4);

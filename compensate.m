@@ -6,8 +6,8 @@ x = linspace(0,L,Nx);
 
 sqb = sqrt(1-SO.beta^2);
 A = (1-sqb)/(1+sqb);
-I1 = SO.I0/(exp(SO.MU*sqb*L)-A*exp(-SO.MU*sqb*L));
-I = I1*(exp(SO.MU*sqb*(L-x))-A*exp(-SO.MU*sqb*(L-x)));
+I1 = SO.I0/(exp(SO.MU0*sqb*L)-A*exp(-SO.MU0*sqb*L));
+I = I1*(exp(SO.MU0*sqb*(L-x))-A*exp(-SO.MU0*sqb*(L-x)));
 
 COMP_X = repmat(I,[NPL,1,Ny]);
 cz = (exp(SO.MU*sqb*SO.Z)-A*exp(-SO.MU*sqb*SO.Z))/(1-A);

@@ -6,8 +6,8 @@ multiWaitbar('CLOSEALL');
 multiWaitbar('Total progress', 0);
 %% create aperture
 global CA
-CA.M = 40;
-CA.N = 40;
+CA.M = 41;
+CA.N = 41;
 CA.R = 5; % Rank for hexs
 CA.ASX = 2;
 CA.ASY = 2;
@@ -15,8 +15,8 @@ CA.DX = 1;
 CA.DY = 1;
 CA.DX0 = 1; % Real open size of pinhole
 CA.DY0 = 1;
-CA.HL = 5;
-CA.NPL = 20;
+CA.HL = 10;
+CA.NPL = 26;
 CA.RASP = 1;
 % CA.VKLR = [121 40 13 0];
 % CA.VKLR = [121 81 13 0];
@@ -30,7 +30,7 @@ CA.VKLR = [400 57 8 CA.M*CA.N/400-1];
 
 CA.VKLR2 = [4 3 2 1];
 % CA.VKLR2 = [7 4 3 1 0];
-CA.PSTT = 'P'; % "H" for hexs
+CA.PSTT = '1'; % "H" for hexs; "1" - for one-pinhole
 CA.JMU = 1;
 CA.IC3 = 0;
 createAperture;
@@ -52,12 +52,12 @@ for i=1:LO.NPL
 end
 createSourceImage;
 save('test_draw.mat','LO')
-pause
+
 %% create Activated object
 global SO
 SO.I0 = 1000;
 SO.beta = 0.95;
-SO.MU = 0.15;
+SO.MU = 0.615;
 SO.MU0 = 0.15;
 SO.Act_Type = 1;
 activate;

@@ -69,7 +69,7 @@ switch LO.ID
             ti = alphabet(:, i);
             L = reshape(ti, 5, 7)';
             T_IM = Make_Plate(L,5,20,20);
-            LO.SD{i} = imresize(T_IM,[LO.M LO.N],'nearest');
+            LO.SD(i,:,:) = imresize(T_IM,[LO.M LO.N],'nearest');
         end
     case 6 %Слово (без цифр)
         W = varargin{4};
