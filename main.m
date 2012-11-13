@@ -110,4 +110,4 @@ SliceBrowser(SO.SD,'Luminophore activity');
 SliceBrowser(RI, 'Luminophore activity reconstructed');
 SliceBrowser(CRI, 'Luminophore activity compensated');
 % SliceBrowser(ER, 'Deviation');
-save('test_draw2.mat','CRI')
+save('test_draw2.mat','RI')

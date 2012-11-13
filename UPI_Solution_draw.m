@@ -2,29 +2,55 @@ close all
 clear all
 clc
 
-b = 0.95;
-m = 0.1;
-x0 = 20;
-x1 = -50;
-x2 = 50;
+bet = 0.95
+m = 0.012
+x0 = 50
+x1 = 0
+x2 = 100
 
-x = linspace(x1,x2,200);
+x = linspace(x1,x2,2000);
 
-ap = sqrt((1+b)/(1-b))+1;
-am = sqrt((1+b)/(1-b))-1;
+ap = sqrt((1+bet)/(1-bet))+1;
+am = sqrt((1+bet)/(1-bet))-1;
+% k = sqrt((1+b)/(1-b));
 
-msq = m*sqrt(1-b*b);
-chm = cosh(msq*(x1-x2));
+k = m*sqrt(1-bet*bet)
+b = m*(1+bet)
 
-mn = am*exp(-(x2-x0)*msq)+ap*exp((x2-x0)*msq);
+divis = k*cosh(k*(x2-x1))+m*sinh(k*(x2-x1));
 
-f_1 = mn/chm*sinh(msq*(x-x1));
+mn = (m-b)*(cosh(k*(x2-x0))+(k-b*m/k)*sinh(k*(x2-x0)));
 
-f_01 = exp(msq*(x-x0))*ap.*(x>=x0);
-f_02 = exp(-msq*(x-x0))*am.*(x>=x0);
+f_m = mn/divis*sinh(k*(x1-x));
 
-f = f_1+f_01+f_02;
+f_p = cosh(k*(x-x0)).*(1-b/k*tanh(k*(x-x0))).*(x>x0);
 
-% plot(x,f_1)
-% figure
-plot(x,f);
+f = f_m+f_p;
+
+numer = k*cosh(k*(x2-x))+m*sinh(k*(x2-x));
+f0=numer/divis;
+
+ plot(x,f); hold on;
+%  plot(x,f); hold on;
+%  legend({'Total', 'Heaviside part', 'Another part', 'Transmission formula'},'Location','SW');
+% line([x0,x0],[min(f), max(f)], 'Color', 'black')
+% axis([min(x) max(x) min(f) max(f)])
+
+mn1 = (b-m)*cosh(k*(x2-x0))+(-k+b*m/k)*sinh(k*(x2-x0));
+
+f_m1 = mn1/divis*sinh(k*(x-x1));
+
+f_p1 = cosh(k*(x-x0)).*(1-b/k*tanh(k*(x-x0))).*(x>x0);
+
+f1 = f_m1+f_p1;
+
+a = (m-k)/(m+k);
+f2 = (exp(k*(x2-x))-a*exp(-k*(x2-x)))./(exp(k*(x2-x0))-a*exp(-k*(x2-x0)));
+
+
+figure
+
+plot(x,f, x,f2); grid on;
+% legend({'Total1', 'Transmission formula'},'Location','SW');
+% line([x0,x0],[min(f), max(f)], 'Color', 'black')
+% axis([min(x) max(x) min(f) max(f)])
